@@ -14,13 +14,13 @@ class m181107_230240_create_junction_table_for_sentence_and_word_tables extends 
     /**
      * {@inheritdoc}
      */
-    public function safeUp()
+    public function up()
     {
         $this->createTable('sentence_has_word', [
             'sentence_id' => $this->integer(),
-            'word_id' => $this->integer(),
-            'amount' => $this->integer(),
-            'PRIMARY KEY(sentence_id, word_id)',
+            'word_english' => $this->char(45),
+            'word_russian' => $this->char(45),
+            'PRIMARY KEY(sentence_id, word_english, word_russian)',
         ]);
 
         // creates index for column `sentence_id`
@@ -40,20 +40,20 @@ class m181107_230240_create_junction_table_for_sentence_and_word_tables extends 
             'CASCADE'
         );
 
-        // creates index for column `word_id`
+        // creates index for columns `word_english`, 'word_russian
         $this->createIndex(
-            'idx-sentence_has_word-word_id',
+            'idx-sentence_has_word-word',
             'sentence_has_word',
-            'word_id'
+            ['word_english', 'word_russian']
         );
 
         // add foreign key for table `word`
         $this->addForeignKey(
-            'fk-sentence_has_word-word_id',
+            'fk-sentence_has_word-word',
             'sentence_has_word',
-            'word_id',
+            ['word_english', 'word_russian'],
             'word',
-            'id',
+            ['english', 'russian'],
             'CASCADE'
         );
     }
@@ -77,13 +77,13 @@ class m181107_230240_create_junction_table_for_sentence_and_word_tables extends 
 
         // drops foreign key for table `word`
         $this->dropForeignKey(
-            'fk-sentence_has_word-word_id',
+            'fk-sentence_has_word-word',
             'sentence_has_word'
         );
 
-        // drops index for column `word_id`
+        // drops index for columns `word_english`, 'word_russian'
         $this->dropIndex(
-            'idx-sentence_has_word-word_id',
+            'idx-sentence_has_word-word',
             'sentence_has_word'
         );
 

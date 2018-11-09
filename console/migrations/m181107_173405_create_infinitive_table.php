@@ -13,9 +13,9 @@ class m181107_173405_create_infinitive_table extends Migration
     public function safeUp()
     {
         $this->createTable('infinitive', [
-            'id' => $this->primaryKey(),
             'english' => $this->char(45),
             'russian' => $this->char(45),
+            'PRIMARY KEY(english, russian)',
         ]);
     }
 
