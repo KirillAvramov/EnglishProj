@@ -12,6 +12,9 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\AddTextFileForm;
+use frontend\models\AddTextForm;
+use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -210,6 +213,23 @@ class SiteController extends Controller
 
         return $this->render('resetPassword', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionAddText()
+    {
+        $textForm = new AddTextForm();
+        $fileForm = new AddTextFileForm();
+
+            $fileForm->textFile = UploadedFile::getInstance($fileForm, 'textFile');
+            if ($fileForm->upload()) {
+                return $this->goHome();
+            }
+        }
+
+        return $this->render('addText', [
+            'text' => $textForm,
+            'file' => $fileForm,
         ]);
     }
 }
