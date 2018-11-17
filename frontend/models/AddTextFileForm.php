@@ -5,6 +5,7 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use common\models\Text;
+use yii\web\UploadedFile;
 
 class AddTextFileForm extends Model
 {
@@ -33,11 +34,9 @@ class AddTextFileForm extends Model
     {
         $text = new Text;
         $filePath = __DIR__.'/../web/texts/' . $this->textFile->baseName . '.' . $this->textFile->extension;
-        $handle = fopen($filePath, 'r');
-        $text->text = fread($handle, filesize($filePath));
+        $text->text = file_get_contents($filePath);
         $text->user_id = Yii::$app->user->getId();
         $text->md5 = md5($text->text);
-        fclose($handle);
         return $text->save() ? $text : null;
     }
 }
