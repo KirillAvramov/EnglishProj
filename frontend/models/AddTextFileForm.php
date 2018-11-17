@@ -2,11 +2,14 @@
 
 namespace frontend\models;
 
+use Yii;
 use yii\base\Model;
-use yii\web\UploadedFile;
+use common\models\Text;
 
 class AddTextFileForm extends Model
 {
+    //const EVENT_FILE_IS_SELECTED = 'text file';
+
     public $textFile;
 
     public function rules()
@@ -24,5 +27,17 @@ class AddTextFileForm extends Model
         } else {
             return false;
         }
+    }
+
+    public function addText()
+    {
+        $text = new Text;
+        $filePath = __DIR__.'/../web/texts/' . $this->textFile->baseName . '.' . $this->textFile->extension;
+        $handle = fopen($filePath, 'r');
+        $text->text = fread($handle, filesize($filePath));
+        $text->user_id = Yii::$app->user->getId();
+        $text->md5 = md5($text->text);
+        fclose($handle);
+        return $text->save() ? $text : null;
     }
 }

@@ -18,11 +18,11 @@ class m181109_165504_create_junction_table_for_text_and_word_tables extends Migr
     {
         $this->createTable('text_has_word', [
             'text_id' => $this->integer(),
-            'word_english' => $this->char(45),
-            'word_russian' => $this->char(45),
+            'word_english' => $this->char(45)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'word_russian' => $this->char(45)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'amount' => $this->integer(),
             'PRIMARY KEY(text_id, word_english, word_russian)',
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         // creates index for column `text_id`
         $this->createIndex(

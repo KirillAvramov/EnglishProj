@@ -14,13 +14,13 @@ class m181109_192925_create_attempt_table extends Migration
     {
         $this->createTable('attempt', [
             'user_id' => $this->integer(),
-            'word_english' => $this->char(45),
-            'word_russian' => $this->char(45),
+            'word_english' => $this->char(45)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'word_russian' => $this->char(45)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'time' => $this->timestamp(),
             'is_en_to_ru' => $this->boolean(),
             'success' => $this->boolean(),
             'PRIMARY KEY(user_id, word_english, word_russian)'
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->addForeignKey(
             'fk-attempt-user_id',

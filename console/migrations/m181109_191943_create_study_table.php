@@ -14,11 +14,11 @@ class m181109_191943_create_study_table extends Migration
     {
         $this->createTable('study', [
             'user_id' => $this->integer(),
-            'word_english' => $this->char(45),
-            'word_russian' => $this->char(45),
+            'word_english' => $this->char(45)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'word_russian' => $this->char(45)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'status' => $this->integer(),
             'PRIMARY KEY(user_id, word_english, word_russian)'
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->addForeignKey(
             'fk-study-user_id',

@@ -13,11 +13,10 @@ class m181107_124057_create_text_table extends Migration
     public function safeUp()
     {
         $this->createTable('text', [
-            'user_id' => $this->primaryKey(),
-            'text' => $this->text(),
-            'file_path' => $this->char(100),
+            'user_id' => $this->integer(),
+            'text' => $this->text()->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'md5' => $this->char(32),
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->addForeignKey(
             'fk-text-user_id',

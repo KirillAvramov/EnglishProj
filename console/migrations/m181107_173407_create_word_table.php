@@ -13,12 +13,12 @@ class m181107_173407_create_word_table extends Migration
     public function safeUp()
     {
         $this->createTable('word', [
-            'english' => $this->char(45),
-            'russian' => $this->char(45),
-            'infinitive_english' => $this->char(45),
-            'infinitive_russian' => $this->char(45),
+            'english' => $this->char(45)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'russian' => $this->char(45)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'infinitive_english' => $this->char(45)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'infinitive_russian' => $this->char(45)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'PRIMARY KEY(english, russian)'
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->addForeignKey(
             'fk-word-infinitive',

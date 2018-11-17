@@ -18,10 +18,10 @@ class m181107_230240_create_junction_table_for_sentence_and_word_tables extends 
     {
         $this->createTable('sentence_has_word', [
             'sentence_id' => $this->integer(),
-            'word_english' => $this->char(45),
-            'word_russian' => $this->char(45),
+            'word_english' => $this->char(45)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
+            'word_russian' => $this->char(45)->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'PRIMARY KEY(sentence_id, word_english, word_russian)',
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         // creates index for column `sentence_id`
         $this->createIndex(

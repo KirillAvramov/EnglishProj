@@ -221,11 +221,20 @@ class SiteController extends Controller
         $textForm = new AddTextForm();
         $fileForm = new AddTextFileForm();
 
+        if (Yii::$app->request->isPost) {
+
             $fileForm->textFile = UploadedFile::getInstance($fileForm, 'textFile');
             if ($fileForm->upload()) {
+                $fileForm->addText();
                 return $this->goHome();
             }
+
+            if ($textForm->load(Yii::$app->request->post()) && $textForm->validate()) {
+                $textForm->addText();
+                return $textForm->text;
+            }
         }
+
 
         return $this->render('addText', [
             'text' => $textForm,
