@@ -13,7 +13,7 @@ use Yii;
  * @property SentenceHasWord[] $sentenceHasWords
  * @property Word[] $wordEnglishes
  * @property TextHasSentence[] $textHasSentences
- * @property Text[] $textUsers
+ * @property Text[] $texts
  */
 class Sentence extends \yii\db\ActiveRecord
 {
@@ -73,8 +73,8 @@ class Sentence extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTextUsers()
+    public function getTexts()
     {
-        return $this->hasMany(Text::className(), ['user_id' => 'text_user_id'])->viaTable('text_has_sentence', ['sentence_id' => 'id']);
+        return $this->hasMany(Text::className(), ['id' => 'text_id'])->viaTable('text_has_sentence', ['sentence_id' => 'id']);
     }
 }

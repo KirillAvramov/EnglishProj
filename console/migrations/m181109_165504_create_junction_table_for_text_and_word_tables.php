@@ -37,7 +37,7 @@ class m181109_165504_create_junction_table_for_text_and_word_tables extends Migr
             'text_has_word',
             'text_id',
             'text',
-            'user_id',
+            'id',
             'CASCADE'
         );
 

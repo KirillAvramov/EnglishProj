@@ -9,7 +9,6 @@ use yii\web\UploadedFile;
 
 class AddTextFileForm extends Model
 {
-    //const EVENT_FILE_IS_SELECTED = 'text file';
 
     public $textFile;
 

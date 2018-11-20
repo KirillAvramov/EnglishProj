@@ -7,11 +7,11 @@ use Yii;
 /**
  * This is the model class for table "text_has_sentence".
  *
- * @property int $text_user_id
+ * @property int $text_id
  * @property int $sentence_id
  *
  * @property Sentence $sentence
- * @property Text $textUser
+ * @property Text $text
  */
 class TextHasSentence extends \yii\db\ActiveRecord
 {
@@ -29,11 +29,11 @@ class TextHasSentence extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text_user_id', 'sentence_id'], 'required'],
-            [['text_user_id', 'sentence_id'], 'integer'],
-            [['text_user_id', 'sentence_id'], 'unique', 'targetAttribute' => ['text_user_id', 'sentence_id']],
+            [['text_id', 'sentence_id'], 'required'],
+            [['text_id', 'sentence_id'], 'integer'],
+            [['text_id', 'sentence_id'], 'unique', 'targetAttribute' => ['text_id', 'sentence_id']],
             [['sentence_id'], 'exist', 'skipOnError' => true, 'targetClass' => Sentence::className(), 'targetAttribute' => ['sentence_id' => 'id']],
-            [['text_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Text::className(), 'targetAttribute' => ['text_user_id' => 'user_id']],
+            [['text_id'], 'exist', 'skipOnError' => true, 'targetClass' => Text::className(), 'targetAttribute' => ['text_id' => 'id']],
         ];
     }
 
@@ -43,7 +43,7 @@ class TextHasSentence extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'text_user_id' => 'Text User ID',
+            'text_id' => 'Text ID',
             'sentence_id' => 'Sentence ID',
         ];
     }
@@ -59,8 +59,8 @@ class TextHasSentence extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTextUser()
+    public function getText()
     {
-        return $this->hasOne(Text::className(), ['user_id' => 'text_user_id']);
+        return $this->hasOne(Text::className(), ['id' => 'text_id']);
     }
 }

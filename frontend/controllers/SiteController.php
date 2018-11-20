@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\Text;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -225,12 +226,12 @@ class SiteController extends Controller
 
             $fileForm->textFile = UploadedFile::getInstance($fileForm, 'textFile');
             if ($fileForm->upload()) {
-                $fileForm->addText();
+                EnglishDBController::updateEnglishDB($fileForm);
                 return $this->goHome();
             }
 
             if ($textForm->load(Yii::$app->request->post()) && $textForm->validate()) {
-                $textForm->addText();
+                EnglishDBController::updateEnglishDB($textForm);
                 return $textForm->text;
             }
         }

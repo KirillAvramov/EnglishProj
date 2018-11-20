@@ -121,7 +121,7 @@ class Word extends \yii\db\ActiveRecord
      */
     public function getTexts()
     {
-        return $this->hasMany(Text::className(), ['user_id' => 'text_id'])->viaTable('text_has_word', ['word_english' => 'english', 'word_russian' => 'russian']);
+        return $this->hasMany(Text::className(), ['id' => 'text_id'])->viaTable('text_has_word', ['word_english' => 'english', 'word_russian' => 'russian']);
     }
 
     /**

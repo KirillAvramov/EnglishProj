@@ -35,7 +35,7 @@ class TextHasWord extends \yii\db\ActiveRecord
             [['text_id', 'amount'], 'integer'],
             [['word_english', 'word_russian'], 'string', 'max' => 45],
             [['text_id', 'word_english', 'word_russian'], 'unique', 'targetAttribute' => ['text_id', 'word_english', 'word_russian']],
-            [['text_id'], 'exist', 'skipOnError' => true, 'targetClass' => Text::className(), 'targetAttribute' => ['text_id' => 'user_id']],
+            [['text_id'], 'exist', 'skipOnError' => true, 'targetClass' => Text::className(), 'targetAttribute' => ['text_id' => 'id']],
             [['word_english', 'word_russian'], 'exist', 'skipOnError' => true, 'targetClass' => Word::className(), 'targetAttribute' => ['word_english' => 'english', 'word_russian' => 'russian']],
         ];
     }
@@ -58,7 +58,7 @@ class TextHasWord extends \yii\db\ActiveRecord
      */
     public function getText()
     {
-        return $this->hasOne(Text::className(), ['user_id' => 'text_id']);
+        return $this->hasOne(Text::className(), ['id' => 'text_id']);
     }
 
     /**

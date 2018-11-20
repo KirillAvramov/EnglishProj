@@ -7,6 +7,7 @@ use Yii;
 /**
  * This is the model class for table "text".
  *
+ * @property int $id
  * @property int $user_id
  * @property string $text
  * @property string $md5
@@ -46,6 +47,7 @@ class Text extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'user_id' => 'User ID',
             'text' => 'Text',
             'md5' => 'Md5',
@@ -65,7 +67,7 @@ class Text extends \yii\db\ActiveRecord
      */
     public function getTextHasSentences()
     {
-        return $this->hasMany(TextHasSentence::className(), ['text_user_id' => 'user_id']);
+        return $this->hasMany(TextHasSentence::className(), ['text_id' => 'id']);
     }
 
     /**
@@ -73,7 +75,7 @@ class Text extends \yii\db\ActiveRecord
      */
     public function getSentences()
     {
-        return $this->hasMany(Sentence::className(), ['id' => 'sentence_id'])->viaTable('text_has_sentence', ['text_user_id' => 'user_id']);
+        return $this->hasMany(Sentence::className(), ['id' => 'sentence_id'])->viaTable('text_has_sentence', ['text_id' => 'id']);
     }
 
     /**
@@ -81,7 +83,7 @@ class Text extends \yii\db\ActiveRecord
      */
     public function getTextHasWords()
     {
-        return $this->hasMany(TextHasWord::className(), ['text_id' => 'user_id']);
+        return $this->hasMany(TextHasWord::className(), ['text_id' => 'id']);
     }
 
     /**
@@ -89,6 +91,22 @@ class Text extends \yii\db\ActiveRecord
      */
     public function getWordEnglishes()
     {
-        return $this->hasMany(Word::className(), ['english' => 'word_english', 'russian' => 'word_russian'])->viaTable('text_has_word', ['text_id' => 'user_id']);
+        return $this->hasMany(Word::className(), ['english' => 'word_english', 'russian' => 'word_russian'])->viaTable('text_has_word', ['text_id' => 'id']);
+    }
+
+    public function getTextSentences()
+    {
+        $sentencesArray = array();
+        $sentence = strtok($this->text, ".\n!?");
+        while ($sentence !== false) {
+            if ($sentence != "" && $sentence != " ") $sentencesArray[] = $sentence; //предложение без последнего хнака, надо пофиксить
+            $sentence = strtok(".\n!?");
+        }
+        return $sentencesArray;
+    }
+
+    public function getTextWords()
+    {
+
     }
 }

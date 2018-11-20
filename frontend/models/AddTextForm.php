@@ -8,7 +8,6 @@ use common\models\Text;
 
 class AddTextForm extends Model
 {
-    //const EVENT_TEXT_IS_PASTED = 'text';
 
     public $text;
 

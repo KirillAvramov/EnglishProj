@@ -13,6 +13,7 @@ class m181107_124057_create_text_table extends Migration
     public function safeUp()
     {
         $this->createTable('text', [
+            'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
             'text' => $this->text()->append('CHARACTER SET utf8 COLLATE utf8_unicode_ci'),
             'md5' => $this->char(32),
